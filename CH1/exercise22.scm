@@ -16,6 +16,7 @@
 (define (prime? n)
 	(= n (smallest-divisor n)))
 
+(define (runtime) (real-time-clock))
 
 (define (timed-prime-test n)
 	(newline)
@@ -38,7 +39,7 @@
 )
 
 #|
-由于程序运行太快了，无法看见时间
+由于程序运行太快了，无法看见时间，改用 real-time-clock 发现当输入扩大10，需要的时间是增加了大概3倍，与猜想有写不同
 这个程序可以看出 cond 条件后面的语句 可以写多个
 cond 里面可以包含cond
 当程序无返回值时，编译器会显示 ;Unspecified return value
@@ -56,5 +57,34 @@ cond 里面可以包含cond
 	)
 )
 
+#|
 
+1 ]=> (search-for-primes 1000000)
 
+1000003 *** 2
+1000033 *** 2
+1000037 *** 1
+;Unspecified return value
+
+1 ]=> (search-for-primes 10000000)
+
+10000019 *** 4
+10000079 *** 4
+10000103 *** 5
+;Unspecified return value
+
+1 ]=> (search-for-primes 100000000)
+
+100000007 *** 14
+100000037 *** 15
+100000039 *** 14
+;Unspecified return value
+
+1 ]=> (search-for-primes 1000000000)
+
+1000000007 *** 40
+1000000009 *** 42
+1000000021 *** 40
+;Unspecified return value
+
+|#
