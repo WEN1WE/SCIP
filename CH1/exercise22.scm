@@ -52,19 +52,19 @@ cond 里面可以包含cond
 
 (define (search-for-primes-helper n left) 
 	(cond ((> left 0) 
-				(if (timed-prime-test n)     ;;; 这里只能用if 然后上面的程序返回#f ，或者无返回就是#t
-					 (search-for-primes-helper (+ n 2) (- left 1))
-					 (search-for-primes-helper (+ n 2) left)
+				(cond ((timed-prime-test n)  (search-for-primes-helper (+ n 2) (- left 1)))
+					 (else (search-for-primes-helper (+ n 2) left))
 				)
 		  )		            
 	)
 )
 
 
-#|
-测试if在无返回值时，也表示#t,cond就没有这样的性质
+
+#|测试if cond在无返回值时，也表示#t
 (define (test n)
 	(display n)
+	#f
 )
 
 (define (test1 n)
@@ -73,7 +73,14 @@ cond 里面可以包含cond
 	)
 )
 
+(define (test3 n)
+	(cond ((test n) 2)
+		  (else -2)
+	)
+)
+
 |#
+
 
 #|
 
