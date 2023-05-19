@@ -25,7 +25,10 @@
 
 (define (start-prime-test n start-time) 
 	(if (prime? n)
-		(report-prime (- (runtime) start-time)))) 
+		(report-prime (- (runtime) start-time)) 
+		#f                                        ;;;加一个返回值，免得下面的程序再进行一次prime？检查
+	)
+) 
 
 (define (report-prime elapsed-time)
 	(display " *** ")
@@ -39,7 +42,7 @@
 )
 
 #|
-由于程序运行太快了，无法看见时间，改用 real-time-clock 发现当输入扩大10，需要的时间是增加了大概3倍，与猜想有写不同
+由于程序运行太快了，无法看见时间，改用 real-time-clock 发现当输入扩大10，需要的时间是增加了大概3倍，与猜想有些不同
 这个程序可以看出 cond 条件后面的语句 可以写多个
 cond 里面可以包含cond
 当程序无返回值时，编译器会显示 ;Unspecified return value
@@ -49,13 +52,28 @@ cond 里面可以包含cond
 
 (define (search-for-primes-helper n left) 
 	(cond ((> left 0) 
-				(cond ((prime? n) (timed-prime-test n) (search-for-primes-helper (+ n 2) (- left 1))) 
-                      (else (search-for-primes-helper (+ n 2) left))
-
+				(if (timed-prime-test n)     ;;; 这里只能用if 然后上面的程序返回#f ，或者无返回就是#t
+					 (search-for-primes-helper (+ n 2) (- left 1))
+					 (search-for-primes-helper (+ n 2) left)
 				)
 		  )		            
 	)
 )
+
+
+#|
+测试if在无返回值时，也表示#t,cond就没有这样的性质
+(define (test n)
+	(display n)
+)
+
+(define (test1 n)
+	(if (test n)
+		1
+	)
+)
+
+|#
 
 #|
 
