@@ -1,18 +1,15 @@
 (define (smallest-divisor n)
 	(find-divisor n 2)
 )
-
 (define (find-divisor n test-divisor)
 	(cond ((> (square test-divisor) n) n)
 		  ((divides? test-divisor n) test-divisor)
 		  (else (find-divisor n (+ test-divisor 1)))
 	) 
 )
-
 (define (divides? a b)
 	(= (remainder b a) 0) 
 )
-
 (define (prime? n)
 	(= n (smallest-divisor n)))
 
@@ -22,18 +19,12 @@
 	(newline)
 	(display n)
 	(start-prime-test n (runtime)))
-
 (define (start-prime-test n start-time) 
 	(if (prime? n)
-		(report-prime (- (runtime) start-time)) 
-		#f                                        ;;;加一个返回值，免得下面的程序再进行一次prime？检查
-	)
-) 
-
+		(report-prime (- (runtime) start-time)))) 
 (define (report-prime elapsed-time)
 	(display " *** ")
     (display elapsed-time))
-
 (define (search-for-primes range) 
 	(if (odd? range)                                     ;;;保证只在奇数的地方检测
 		 (search-for-primes-helper (+ range 2) 3)    
@@ -42,45 +33,20 @@
 )
 
 #|
+由于程序运行太快了，无法看见时间
 由于程序运行太快了，无法看见时间，改用 real-time-clock 发现当输入扩大10，需要的时间是增加了大概3倍，与猜想有些不同
 这个程序可以看出 cond 条件后面的语句 可以写多个
 cond 里面可以包含cond
 当程序无返回值时，编译器会显示 ;Unspecified return value
-
-
 |#
-
 (define (search-for-primes-helper n left) 
 	(cond ((> left 0) 
-				(cond ((timed-prime-test n)  (search-for-primes-helper (+ n 2) (- left 1)))
-					 (else (search-for-primes-helper (+ n 2) left))
+				(cond ((prime? n) (timed-prime-test n) (search-for-primes-helper (+ n 2) (- left 1))) 
+                      (else (search-for-primes-helper (+ n 2) left))
 				)
 		  )		            
 	)
 )
-
-
-
-#|测试if cond在无返回值时，也表示#t
-(define (test n)
-	(display n)
-	#f
-)
-
-(define (test1 n)
-	(if (test n)
-		1
-	)
-)
-
-(define (test3 n)
-	(cond ((test n) 2)
-		  (else -2)
-	)
-)
-
-|#
-
 
 #|
 
