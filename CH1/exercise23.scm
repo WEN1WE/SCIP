@@ -42,7 +42,7 @@
 
 (define (start-prime-test n start-time) 
 	(if (prime? n)
-		(report-prime (- (runtime) start-time)))) 
+		(report-prime (- (runtime) start-time)) 0)) 
 
 (define (report-prime elapsed-time)
 	(display " *** ")
