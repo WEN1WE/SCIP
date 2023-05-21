@@ -1,8 +1,22 @@
-(define (integral f a b n)
-	(define (add-h x)
-		(+ x (* 1.0 (/ (- b a) n)))
+#|
+
+以下标为x，从新设计了一个函数
+
+|#
+
+(define (inc n) (+ n 1))
+
+(define (sum term a next b)
+	(if (> a b)
+		0
+		(+ (term a) (sum term (next a) next b))
 	)
 
+)
+
+(define (cube x) (* x x x))
+
+(define (integral f a b n)
 	(define (get-coef x)
 		(cond ((= x 0) 1)
 			  ((= x n) 1)
@@ -11,29 +25,25 @@
 		)
 	)
 
-	(define (sum term a next b count)
-		(if (> a b)
-			0
-			(+ (* (get-coef count) (term a)) (sum term (next a) next b (+ count 1)))
-		)
+	(define h (* 1.0 (/ (- b a) n)))
+
+	(define (term x)
+		(* (get-coef x) (f (+ a (* h x))))
 	)
 
-	(/ (* (sum f a add-h b 0) (/ (- b a) n)) 3)
+	(/ (* h (sum term 0 inc n)) 3)
 )
 
 
-(define (cube x) (* x x x))
-
 #|
-
 
 1 ]=> (integral cube 0 1 100)
 
-;Value: .24666666666666684
+;Value: .24999999999999992
 
 1 ]=> (integral cube 0 1 1000)
 
-;Value: .24966666666666756
+;Value: .2500000000000003
 
 |#
 
