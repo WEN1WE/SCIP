@@ -14,7 +14,7 @@
 )
 
 (define (nth-smooth f n)
-	((repeated smooth 2) f)
+	((repeated smooth n) f)
 )
 
 
