@@ -1,3 +1,4 @@
+
 (define (add-interval x y)
 	(make-interval (+ (lower-bound x) (lower-bound y))
                    (+ (upper-bound x) (upper-bound y))))
@@ -28,5 +29,5 @@
 	(min (car x) (cdr x))
 )
 
-;;;(lower-bound (make-interval -1 -2))
+(lower-bound (make-interval -1 -2))
 
