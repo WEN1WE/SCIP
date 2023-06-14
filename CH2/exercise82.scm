@@ -5,10 +5,10 @@
 
 (define (get-new-args args type-tags)
 	(let ((args-length (length args)))
-		(define (iter args)
+		(define (iter tags)
 			(if (null? args)
 				false
-				(let ((coercions (get-coercions (car args) type-tags)))
+				(let ((coercions (get-coercions (car tags) type-tags)))
 					(if (= (length coercions) (args-length))
 						(map (lambda (coercion arg) (coercion arg)) coercions args)
 						(iter (cdr args))
