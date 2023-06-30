@@ -1,0 +1,1 @@
+exchange的实现，有一个difference的变量，这个变量，可能会失效
