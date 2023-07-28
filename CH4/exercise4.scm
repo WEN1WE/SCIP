@@ -9,8 +9,9 @@
 	)
 )
 
+
 (define (eval-and exps env)
-	(cond ((null? exps) true)
+	(cond ((null? exps) true)     ; 这里是被求值表达式的真值
 
 		  ((last-exp? exps) (eval (first-exp exps) env))
 		  (else 
@@ -25,7 +26,7 @@
 )
 
 (define (eval-or exps env)
-	(cond ((null? exps) false)
+	(cond ((null? exps) false)  ; 这里是被求值表达式的真值
 		  ((last-exp? exps) (eval (first-exp exps) env))
 		  (else 
 		  		(let ((first (eval (first-exp exps) env)))
