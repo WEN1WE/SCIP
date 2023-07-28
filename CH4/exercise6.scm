@@ -25,8 +25,7 @@
         	((cond? exp) (eval (cond->if exp) env))
 
 
-        	((let? exp) (apply (eval (let->combination exp) env) 
-        		               (list-of-values (list-of-exps (let-clauses exp)))))
+        	((let? exp)  (eval (let->combination exp) env))
 
 
         	((application? exp)
@@ -40,14 +39,14 @@
 (define (let? exp) (tagged-list? exp 'let))
 
 (define (let->combination exp)
-	(list 'lambda (list-of-parameters (let-clauses exp)) (let-body exp))
+	(cons (make-lambda (let-parameters (let-clauses exp)) (let-body exp)) (let-exps exp))
 )
 
 (define (let-clauses exp)
 	(cadr exp)
 )
 
-(define (list-of-parameters clauses)
+(define (let-parameters clauses)
 	(define (helper lambda-clauses)
 		(if (null? lambda-clauses)
 			'()
@@ -61,7 +60,7 @@
 	(helper clauses)
 )
 
-(define (list-of-exps clauses)
+(define (let-exps clauses)
 	(define (helper lambda-clauses)
 		(if (null? lambda-clauses)
 			'()
@@ -76,7 +75,7 @@
 
 
 (define (let-body exp)
-	(caddr exp)
+	(cddr exp)
 )
 
 
@@ -87,3 +86,5 @@
             (list-of-values (rest-operands exps) env))))
 
 
+(define (make-lambda parameters body) 
+	(cons 'lambda (cons parameters body)))
