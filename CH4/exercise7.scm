@@ -12,6 +12,7 @@
 )
 |#
 
+; body is a list
 
 (define (let*? exp) (tagged-list? exp 'let*))
 
@@ -21,9 +22,14 @@
 
 	(define (helper bindings)
 		(if (last-exp? bindings)
-			(list 'let (list (first-exp bindings)) body)
-			(list 'let (list (first-exp bindings)) (let*->nested-lets (rest-exps bindings)))
+			(make-let bindings body)
+			(make-let (list (first-exp bindings)) 
+				      (list (let*->nested-lets (rest-exps bindings))))
 		)
+	)
+
+	(define (make-let bindings body)
+		(cons 'let (cons bindings body))
 	)
 
 	(helper (let*-bindings exp))
@@ -34,8 +40,13 @@
 )
 
 (define (let*-body exp)
-	(caddr exp)
+	(cddr exp)
 )
+
+
+(define (make-lambda parameters body) 
+	(cons 'lambda (cons parameters body)))
+
 
 (define (last-exp? seq) (null? (cdr seq))) 
 (define (first-exp seq) (car seq)) 
