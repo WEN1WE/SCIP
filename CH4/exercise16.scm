@@ -19,7 +19,7 @@
 				  ((eq? var (car vars)) 
 				  		(let ((temp (car vals)))
 				  			(if (eq? temp '*unassigned*)
-				  				(error "not")
+				  				(error "unassigned" var)
 				  				temp
 				  			)
 				  		)
