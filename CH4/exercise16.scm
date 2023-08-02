@@ -61,12 +61,12 @@
 		
 
 	)
-
-	(append set!)
+	(cons 'let (cons var-unassigneds (append set!-var-vals others)))
 )
 
 
 
 
+make-procedure
 
 
