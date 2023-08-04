@@ -60,8 +60,6 @@
 			(eval-sequence (rest-exps exps) env))))
 
 
-
-
 (define (eval-assignment exp env) 
 	(set-variable-value! (assignment-variable exp)
                        (eval (assignment-value exp) env)
@@ -311,6 +309,9 @@
 		  (list 'map map)
 		  (list 'list list) 
 		  (list '+ +)
+		  (list '> >)
+		  (list '= =)
+		  (list '- -)
 		  ))
 
 (define (primitive-procedure? proc) 
