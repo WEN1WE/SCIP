@@ -39,7 +39,7 @@
 (define (let? exp) (tagged-list? exp 'let))
 
 (define (let->combination exp)
-	(cons (make-lambda (let-parameters (let-clauses exp)) (let-body exp)) (let-exps exp))
+	(cons (make-lambda (let-parameters (let-clauses exp)) (let-body exp)) (let-exps (let-clauses exp))
 )
 
 (define (let-clauses exp)
