@@ -312,7 +312,6 @@
 		  (list '> >)
 		  (list '= =)
 		  (list '- -)
-		  ;(list 'set! set!)
 		  ))
 
 (define (primitive-procedure? proc) 
@@ -574,7 +573,17 @@ count
 ;;; L-Eval value:
 2
 
+
+(define w (id (id 10)))
+(define (id x) (set! count (+ count 1)) x)
+
+x : (delay-it (id 10) env)   ('thunk (id 10) env)
+
+w : x : ('thunk (id 10) env)
+
+
 |#
+
 
 
 
