@@ -25,10 +25,10 @@ Mary Ann Moore 5       Dr. Parker
 			(Colonel (amb 1 3 4))
 
 			(let ((Hall (amb 1 4)))
-				(require? (not (= Colonel Hall)))
+				(require (not (= Colonel Hall)))
 				(let ((Parker (amb 1 3 4)))
-					(require? (and (not (= Parker Colonel) (not (= Parker Hall)))))
-					(require? (or (and (= Colonel 4) (= Parker 2)) (and (= Hall 4) (= Parker 3))))
+					(require (and (not (= Parker Colonel) (not (= Parker Hall)))))
+					(require (or (and (= Colonel 4) (= Parker 2)) (and (= Hall 4) (= Parker 3))))
 				)
 			)
 		 )
