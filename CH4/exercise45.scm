@@ -7,14 +7,15 @@
 #|
 (sentence (noun-phrase (article the) (noun cat))
           (verb eats))
-|#
+
 
 
 (define (parse-sentence) (list 'sentence
          (parse-noun-phrase)
          (parse-word verbs)))
 
-#|
+
+
 ; the cat 
 (define (parse-noun-phrase) 
 	(list 'noun-phrase
@@ -140,6 +141,50 @@
 
 
 
+
+(The professor lectures to the student (in the class) (with the cat))
+
+(The professor lectures to (the student (in the class) (with the cat)))
+
+(The professor lectures to (the student in the class) (with the cat))
+
+(The professor lectures to (the student (in the class (with the cat))))
+
+(The professor lectures to the student ((in the class (with the cat)))
+
+
+
+(The professor)
+(simple-noun-phrase (article the) (noun professor))
+
+
+(verb lectures)
+
+(prep to)
+
+(the student)
+(simple-noun-phrase (article the) (noun student))
+
+
+(with the cat)
+(prep-phrase (prep with) (simple-noun-phrase (article the) (noun cat))))
+
+(in the class)
+(prep-phrase (prep in) (simple-noun-phrase (article the) (noun class)))
+
+
+
+(sentence
+	(simple-noun-phrase (article the) (noun professor))
+
+	(verb-phrase
+
+
+
+
+
+
+)
 
 
 
