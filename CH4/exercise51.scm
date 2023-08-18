@@ -13,15 +13,27 @@
 		((pre-assignment? exp) (analyze-pre-assignment exp))
 		((definition? exp) (analyze-definition exp))
 		((if? exp) (analyze-if exp))
+		((let? exp) (analyze (let->combination exp)))
 		((amb? exp) (analyze-amb exp))
 		((lambda? exp) (analyze-lambda exp))
 		((begin? exp) (analyze-sequence (begin-actions exp))) 
 
 		((cond? exp) (analyze (cond->if exp)))
-		;((let? exp)  (analyze (let->combination exp)))    ; 只用这一句就够了
 		((application? exp) (analyze-application exp))
 		(else (error "Unknown expression type: ANALYZE" exp))))
 
+
+
+(define (let? exp) (tagged-list? exp 'let))
+
+(define (let->combination exp)
+  (define (let-body exp) (cddr exp))
+  (define (let-vars exp) (map car (cadr exp)))
+  (define (let-exps exp) (map cadr (cadr exp)))
+  
+  (cons (make-lambda (let-vars exp) 
+                     (let-body exp)) 
+        (let-exps exp))) 
 
 
 (define (pre-assignment? exp)
@@ -725,7 +737,7 @@ exp : 1
 ;(define (require p) (if (not p) (amb)))
 
 
-
+#|
 (define (shuffle-list lst)
   (let loop ((remaining lst) (shuffled '()))
     (if (null? remaining)
@@ -771,7 +783,7 @@ exp : 1
   (list x y count))
 
 
-
+|#
 
 #|
 ;;; Starting a new problem 
